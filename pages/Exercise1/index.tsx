@@ -3,7 +3,7 @@ import "./range.css";
 
 const RangeSlider = () => {
 	const [min, setMin] = useState(1);
-	const [max, setMax] = useState(10000);
+	const [max, setMax] = useState(100);
 	const [leftPosition, setLeftPosition] = useState(0);
 	const [rightPosition, setRightPosition] = useState(0);
 	const [draggingBullet, setDraggingBullet] = useState(null);

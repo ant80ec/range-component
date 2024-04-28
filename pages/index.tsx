@@ -1,9 +1,11 @@
-import React from 'react'
-import Range from './Range'
+import React from "react";
+import Router from "next/router";
+const onClick = () => {
+	Router.push("/Exercise1");
+};
 
 const HomePage = () => {
-    return (<><h1>Hello, Next.js!</h1>
-    <Range></Range></>)
-}
+	return <button onClick={onClick}> Exercise 1</button>;
+};
 
-export default HomePage
+export default HomePage;

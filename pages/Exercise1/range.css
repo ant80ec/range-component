@@ -1,7 +1,11 @@
+body{
+  margin: 0;
+}
+
 .range-container {
   background-color:rgb(0, 0, 0);
   width: 100vw;
-  height: 100vw;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -21,13 +25,20 @@ input[type=number] {
   color: #fff;
   background-color: transparent;
   border: none;
-  width: 5em;
+  width: 2em;
 }
 .range-container > span{
   color:#fff;
 }
 .range-container > input:focus-visible {
   outline: none
+}
+.range-container > span:first-of-type {
+  margin-right:20px
+}
+
+.range-container > input:last-of-type {
+  margin-left:20px
 }
 
 .range-slider {
