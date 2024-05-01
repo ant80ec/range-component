@@ -1,6 +1,15 @@
 # Changelog
 
-## April 28, 2024
+## May 1, 2024
+
+- Designed Exercise 2
+- Component division
+- Data fetching and use
+- Cypress addition
+
+## April 30, 2024
+
+- Created mocked API
 
 ## April 26, 2024
 

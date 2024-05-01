@@ -1,5 +1,16 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./range.css";
+import RangeBar from "../../components/RangeBar/RangeBar";
+
+async function getMinMaxValues() {
+	const res = await fetch("http://demo6526235.mockable.io/getExercise1Ranges");
+
+	if (!res.ok) {
+		// This will activate the closest `error.js` Error Boundary
+		throw new Error("Failed to fetch data");
+	}
+	return res.json();
+}
 
 const RangeSlider = () => {
 	const [min, setMin] = useState(1);
@@ -15,7 +26,20 @@ const RangeSlider = () => {
 	const onMouseDown = (bullet) => {
 		setDraggingBullet(bullet);
 	};
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const data = await getMinMaxValues();
+				setMin(data.min);
+				setMax(data.max);
+				console.log(data);
+			} catch (error) {
+				console.error("Error fetching data:", error);
+			}
+		};
 
+		fetchData();
+	}, []);
 	const onMouseMove = (e) => {
 		if (draggingBullet) {
 			const bulletRef =
@@ -95,6 +119,7 @@ const RangeSlider = () => {
 				onChange={(e) => setMax(parseInt(e.target.value))}
 			/>
 			<span>€</span>
+			<RangeBar />
 		</div>
 	);
 };
