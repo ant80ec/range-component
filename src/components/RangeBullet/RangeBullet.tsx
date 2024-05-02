@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import "./rangeBullet.css";
 
 interface RangeBulletProps {
 	//onMouseDown: (bullet: string) => void;

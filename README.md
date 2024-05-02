@@ -23,3 +23,9 @@ npm run build
 ```
 npm run start
 ```
+
+4. **Run the Tests**: With the project built and the production server running, open Cypress for testing:
+
+```
+npm run cypress:open
+```

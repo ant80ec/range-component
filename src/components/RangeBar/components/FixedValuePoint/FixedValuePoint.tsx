@@ -1,9 +1,5 @@
 import React, { useRef } from "react";
-
-interface FixedValuePointProps {
-	pointValue: number;
-	position: number;
-}
+import "./fixedValue.css";
 
 const FixedValuePoint: React.FC<FixedValuePointProps> = ({
 	pointValue,

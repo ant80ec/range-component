@@ -1,125 +1,61 @@
-import React, { useState, useRef, useEffect } from "react";
-import "./range.css";
+import React, { useState, useRef, useEffect, FC } from "react";
 import RangeBar from "../../components/RangeBar/RangeBar";
+import RangeBullet from "../../components/RangeBullet/RangeBullet";
+import RangeValue from "../../components/RangeValue/RangeValue";
+import "../../app/global.css";
 
-async function getMinMaxValues() {
+const getMinMaxValues = async () => {
 	const res = await fetch("http://demo6526235.mockable.io/getExercise1Ranges");
-
 	if (!res.ok) {
-		// This will activate the closest `error.js` Error Boundary
 		throw new Error("Failed to fetch data");
 	}
 	return res.json();
-}
+};
 
-const RangeSlider = () => {
-	const [min, setMin] = useState(1);
-	const [max, setMax] = useState(100);
-	const [leftPosition, setLeftPosition] = useState(0);
-	const [rightPosition, setRightPosition] = useState(0);
-	const [draggingBullet, setDraggingBullet] = useState(null);
+const RangeSlider: FC = () => {
+	const [min, setMin] = useState<number>(1);
+	const [max, setMax] = useState<number>(100);
+	const [originalMin, setOriginalMin] = useState<number>(0);
+	const [originalMax, setOriginalMax] = useState<number>(0);
 
-	const sliderRef = useRef(null);
-	const bulletRefLeft = useRef(null);
-	const bulletRefRight = useRef(null);
+	const sliderRef = useRef<HTMLDivElement | null>(null);
 
-	const onMouseDown = (bullet) => {
-		setDraggingBullet(bullet);
-	};
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const data = await getMinMaxValues();
-				setMin(data.min);
-				setMax(data.max);
-				console.log(data);
+				const { min, max } = await getMinMaxValues();
+				setMin(min);
+				setMax(max);
+				setOriginalMin(min);
+				setOriginalMax(max);
 			} catch (error) {
 				console.error("Error fetching data:", error);
 			}
 		};
-
 		fetchData();
 	}, []);
-	const onMouseMove = (e) => {
-		if (draggingBullet) {
-			const bulletRef =
-				draggingBullet === "left" ? bulletRefLeft : bulletRefRight;
-			const otherBulletRef =
-				draggingBullet === "left" ? bulletRefRight : bulletRefLeft;
-			const bullet = bulletRef.current;
-			const otherBullet = otherBulletRef.current;
-			const slider = sliderRef.current;
-			const sliderRect = slider.getBoundingClientRect();
-			const mouseX = e.clientX - sliderRect.left;
-			const newPosition = Math.max(0, Math.min(mouseX, sliderRect.width));
-			const otherPosition =
-				draggingBullet === "left" ? rightPosition : leftPosition;
-
-			// Check if the bullets collide
-			if (
-				(draggingBullet === "left" && newPosition < otherPosition) ||
-				(draggingBullet === "right" && newPosition > otherPosition)
-			) {
-				bullet.style.left = newPosition - bullet.offsetWidth / 2 + "px";
-				if (draggingBullet === "left") {
-					setLeftPosition(newPosition);
-					const value = Math.round(
-						(newPosition / sliderRect.width) * (max - min) + min
-					);
-					setMin(value);
-				} else {
-					setRightPosition(newPosition);
-					const value = Math.round(
-						(newPosition / sliderRect.width) * (max - min) + min
-					);
-					setMax(value);
-				}
-			}
-		}
-	};
-
-	const onMouseUp = () => {
-		setDraggingBullet(null);
-	};
-
-	useEffect(() => {
-		window.addEventListener("mousemove", onMouseMove);
-		window.addEventListener("mouseup", onMouseUp);
-		return () => {
-			window.removeEventListener("mousemove", onMouseMove);
-			window.removeEventListener("mouseup", onMouseUp);
-		};
-	}, [draggingBullet]);
 
 	return (
 		<div className="range-container">
-			<input
-				type="number"
-				value={min}
-				onChange={(e) => setMin(parseInt(e.target.value))}
+			<RangeValue
+				rangeValue={min}
+				min={min}
+				max={max}
+				originalMin={originalMin}
+				originalMax={originalMax}
 			/>
-			<span>€</span>
-			<div ref={sliderRef} className="range-slider">
-				<div
-					ref={bulletRefLeft}
-					onMouseDown={() => onMouseDown("left")}
-					tabIndex={0}
-					className={`range-bullet left ${draggingBullet ? "dragging" : ""}`}
-				/>
-				<div
-					ref={bulletRefRight}
-					onMouseDown={() => onMouseDown("right")}
-					tabIndex={0}
-					className={`range-bullet right ${draggingBullet ? "dragging" : ""}`}
-				/>
+			<div className="range-bar-container" ref={sliderRef}>
+				<RangeBullet draggingBullet={"left"} />
+				<RangeBar min={min} max={max} />
+				<RangeBullet draggingBullet={"right"} />
 			</div>
-			<input
-				type="number"
-				value={max}
-				onChange={(e) => setMax(parseInt(e.target.value))}
+			<RangeValue
+				rangeValue={max}
+				min={min}
+				max={max}
+				originalMin={originalMin}
+				originalMax={originalMax}
 			/>
-			<span>€</span>
-			<RangeBar />
 		</div>
 	);
 };

@@ -1,12 +1,13 @@
 import React from "react";
 import Router from "next/router";
+import "../app/global.css";
 const onClick = (exerciseNumber) => {
 	Router.push(`/Exercise${exerciseNumber}`);
 };
 
 const HomePage = () => {
 	return (
-		<>
+		<div className="home-container">
 			{" "}
 			<button
 				onClick={() => {
@@ -22,7 +23,7 @@ const HomePage = () => {
 				{" "}
 				Exercise 2
 			</button>
-		</>
+		</div>
 	);
 };
 

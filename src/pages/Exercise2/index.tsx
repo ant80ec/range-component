@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import "./range.css";
+import "../../app/global.css";
 import RangeBar from "../../components/RangeBar/RangeBar";
 import RangeBullet from "../../components/RangeBullet/RangeBullet";
 import RangeValue from "../../components/RangeValue/RangeValue";
@@ -28,8 +28,8 @@ const FixedValuesRange = () => {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const data = await getFixedValues();
-				setFixedValues(data.ranges);
+				const { rangeValues } = await getFixedValues();
+				setFixedValues(rangeValues);
 			} catch (error) {
 				console.error("Error fetching data:", error);
 			}
@@ -41,9 +41,11 @@ const FixedValuesRange = () => {
 	return (
 		<div className="range-container">
 			<label>1€</label>
-			<RangeBullet /* onMouseDown={} */ draggingBullet={"left"} />
-			<RangeBar min={1} max={100} fixedValues={fixedValues} />
-			<RangeBullet /* onMouseDown={} */ draggingBullet={"right"} />
+			<div className="range-bar-container">
+				<RangeBullet /* onMouseDown={} */ draggingBullet={"left"} />
+				<RangeBar min={1} max={100} fixedValues={fixedValues} />
+				<RangeBullet /* onMouseDown={} */ draggingBullet={"right"} />
+			</div>
 			<label>100€</label>
 		</div>
 	);

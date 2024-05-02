@@ -1,5 +1,11 @@
 # Changelog
 
+## May 2, 2024
+
+- Component division
+- Interface creation
+- Css division
+
 ## May 1, 2024
 
 - Designed Exercise 2

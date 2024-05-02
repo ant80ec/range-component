@@ -1,0 +1,15 @@
+.range-point {
+    position: absolute;
+    top: 10px;
+    width: 2px;
+    height: 10px;
+    background-color: #fff;
+  }
+  .range-point > label{
+    color: #fff;
+    display: flex;
+    font-size: 0.6em;
+    margin-top: 15px;
+    position: absolute;
+    left: -9px;
+  }

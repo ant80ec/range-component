@@ -1,0 +1,29 @@
+.range-bullet {
+    width: 20px;
+    height: 20px;
+    background-color: rgb(22, 137, 245);
+    border-radius: 50%;
+    position: absolute;
+    z-index: 1;
+  }
+  .range-bullet:hover{
+    width: 40px;
+    height: 40px;
+    background-color:#fff;
+    cursor: pointer;
+  }
+  
+  .range-bullet:hover:not(.dragging) {
+    width: 40px;
+    height: 40px;
+    background-color: #fff;
+    cursor: pointer;
+  }
+  .range-bullet.left {
+    left: 0;
+  }
+  
+  .range-bullet.right {
+    right: 0;
+    background-color: red;
+  }
