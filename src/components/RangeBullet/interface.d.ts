@@ -1,5 +1,3 @@
-interface RangeBulletProps {
-	//onMouseDown: (bullet: string) => void;
-	draggingBullet: string | null;
-	position?: string;
+export interface RangeBulletProps {
+  draggingBullet: string | null;
 }

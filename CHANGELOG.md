@@ -1,5 +1,9 @@
 # Changelog
 
+## May 3, 2024
+
+- Added movement to bullets
+
 ## May 2, 2024
 
 - Component division
